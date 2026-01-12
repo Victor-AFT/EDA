@@ -1,2 +1,2 @@
 # EDA
-Arquitectura Basada en eventos
+Simulacion de una Arquitectura Basada en eventos
