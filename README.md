@@ -2,9 +2,9 @@
 Simulacion de una Arquitectura Basada en eventos
 
 Cloud (AWS)
-	SNS / SQS
-	EventBridge
-	Lambda
+	SNS / SQS, 
+	EventBridge, 
+	Lambda, 
     DynamoDB / DynamoDB Streams
     
 ### 1. Generación de eventos
