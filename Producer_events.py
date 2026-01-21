@@ -6,6 +6,7 @@ import boto3
 import json
 
 
+
 def get_temperature_status(value):
     if value <= -30:
         return "EXTREME_COLD"
@@ -128,7 +129,7 @@ def get_wind_status(speed, gust):
     return status
 
 
-client_sns = boto3.client("sns")
+client_sns = boto3.client("sns", region_name="us-east-1")
 
 temperature_value = round(random.uniform(-70, 50), 2)
 aqi_value = random.randint(0, 350)
@@ -218,7 +219,7 @@ def generate_event():
 
 while True:
     event = generate_event()
-    client_sns.publish(Message=json.dumps(event),TargetArn="arn:aws:sns:us-east-1:983470701612:SNS")
+    client_sns.publish(Message=json.dumps(event),TargetArn="arn:aws:sns:us-east-1:983470701612:IOT_SNS")
     print("Evento enviado:", event)
     time.sleep(0.5)  # streaming continuo
 
