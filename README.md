@@ -1,11 +1,13 @@
 # EDA
 Simulacion de una Arquitectura Basada en eventos
 
+<img width="364" height="611" alt="image" src="https://github.com/user-attachments/assets/50784427-7977-4f23-8a71-10b88871c142" />
+
+
 Cloud (AWS)
-	SNS / SQS, 
-	EventBridge, 
+	SNS / SQS,  
 	Lambda, 
-    DynamoDB / DynamoDB Streams
+    DynamoDB 
     
 ### 1. Generación de eventos
 	- Simular una fuente de eventos continua (script, API, productor, etc.)
