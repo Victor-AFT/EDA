@@ -6,7 +6,7 @@ import uuid
 
 # Conexión a DynamoDB
 dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('Data_iot')
+table = dynamodb.Table('Data_Air')
 
 
 
@@ -54,6 +54,7 @@ def get_pm10(pm10):
 
 
 def get_air_quality_category(aqi, pm25, pm10):
+
     categories = [
         get_aqi(aqi),
         get_pm25(pm25),
@@ -61,16 +62,15 @@ def get_air_quality_category(aqi, pm25, pm10):
     ]
 
     severity_order = [
-    "BUENA",
-    "MODERADA",
-    "INSALUBRE_PARA_SENSIBLES",
-    "INSALUBRE",
-    "MUY_INSALUBRE",
-    "PELIGROSA"
+        "BUENA",
+        "MODERADA",
+        "INSALUBRE_PARA_SENSIBLES",
+        "INSALUBRE",
+        "MUY_INSALUBRE",
+        "PELIGROSA"
     ]
 
     return max(categories, key=lambda c: severity_order.index(c))
-
 
 
 def lambda_handler(event, context):
@@ -95,13 +95,22 @@ def lambda_handler(event, context):
         }
         #Categorizacion de evento
         if item["eventType"] == "AirQualit-sensor":
-            aqi=get_aqi(item["data"]["aqi"])
-            pm25=get_pm25(item["data"]["pm25"])
-            pm10=get_pm10(item["data"]["pm10"])
-           
-            category =  get_air_quality_category(aqi, pm25, pm10)
-            item['data']["category"] = category  # opcional, pero útil
-            print(f"Update item {item} to table {table}")
+            try:
+                aqi_value = int(item["data"]["aqi"])
+                pm25_value = float(item["data"]["pm25"])
+                pm10_value = int(item["data"]["pm10"])
+
+                category = get_air_quality_category(
+                    aqi_value,
+                    pm25_value,
+                    pm10_value
+                )
+
+                item["data"]["category"] = category
+                print(f"Update item {item} to table {table}")
+
+            except (ValueError, TypeError) as e:
+                print("Error categorizando evento:", e)
 
         # Guardar UNA sola vez en DynamoDB
         table.put_item(Item=item)
