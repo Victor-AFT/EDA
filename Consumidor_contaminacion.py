@@ -93,8 +93,13 @@ def lambda_handler(event, context):
                 parse_float=Decimal
             )
         }
+        
+
+        print("eventType recibido:", item["eventType"])
+        print("data antes de categorizar:", item["data"])
+
         #Categorizacion de evento
-        if item["eventType"] == "AirQualit-sensor":
+        if item["eventType"] == 'AirQuality-sensor':
             try:
                 aqi_value = int(item["data"]["aqi"])
                 pm25_value = float(item["data"]["pm25"])
@@ -107,14 +112,16 @@ def lambda_handler(event, context):
                 )
 
                 item["data"]["category"] = category
-                print(f"Update item {item} to table {table}")
-
+                #print(f"Update item {message} to table {table}")
+                print("Categoría calculada:", category)
             except (ValueError, TypeError) as e:
+                #item["data"]["category"] = "ERROR_DATOS"
                 print("Error categorizando evento:", e)
 
         # Guardar UNA sola vez en DynamoDB
         table.put_item(Item=item)
         print("Guardado en DynamoDB:", item["eventId"])
+        print("DATA Despues de categorizar:", item["data"])
 
        
     return {
