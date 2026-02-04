@@ -10,7 +10,8 @@ El objetivo principal es demostrar un flujo de eventos near-real-time, desacopla
 SNS, 
 SQS, 
 Lambda,  
-DynamoDB 
+DynamoDB,
+CloudWatch.
     
 ### 1. Generación de eventos
 La generación de eventos se realiza mediante un script productor que simula sensores IoT de calidad del aire Eventes_AirQuality 
