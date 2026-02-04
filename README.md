@@ -7,9 +7,9 @@ El objetivo principal es demostrar un flujo de eventos near-real-time, desacopla
 <img width="364" height="611" alt="image" src="https://github.com/user-attachments/assets/50784427-7977-4f23-8a71-10b88871c142" />
 
 # Servicios Utilizados en AWS:
-SNS 
-SQS
-Lambda 
+SNS, 
+SQS, 
+Lambda,  
 DynamoDB 
     
 ### 1. Generación de eventos
