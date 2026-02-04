@@ -19,10 +19,10 @@ Características del evento:
 	eventId: identificador único (UUID) 
 	timestamp: fecha y hora de generación 
 	atributo: 
-		sensorId 
-		aqi 
-		pm25 
-		pm10 
+		sensorId,
+		aqi, 
+		pm25, 
+		pm10, 
 El script genera valores aleatorios dentro de rangos realistas y publica eventos de manera continua cada 0.5 segundos, simulando un stream de datos. 
    
 ### 2. Ingesta y canalización de eventos
@@ -30,9 +30,9 @@ Se utiliza AWS SNS como canal de eventos intermedio.
 Flujo: 
 	Productor (script Python) → SNS Topic → SQS → Lambda Consumidora
 Componentes:
-	Productor: genera y publica eventos (SNS) 
-	Consumidor: procesa eventos (Lambda) 
-	Persistencia: DynamoDB 
+	Productor: genera y publica eventos (SNS).
+	Consumidor: procesa eventos (Lambda). 
+	Persistencia: DynamoDB. 
  
 ### 3. Procesamiento asíncrono / streaming
 La Lambda consumidora procesa los eventos conforme llegan desde SQS  (Consumidor_contaminacion) 
@@ -50,17 +50,17 @@ Estado derivado
 ### 5. Persistencia
 Cada evento procesado se almacena como un ítem en DynamoDB. 
 Campos principales: 
-	eventId (PK) 
-	sensorId 
-	timestamp 
-	eventType 
-	data (mediciones + categoría) 
+	eventId (PK), 
+	sensorId, 
+	timestamp, 
+	eventType, 
+	data (mediciones + categoría).
 Justificacion:
 	Se utiliza NoSQL (DynamoDB) porque: 
-		Alta velocidad de escritura 
-		Escalado automático 
-		Estructura flexible (ideal para eventos) 
-		Compatible con Free Tier 
+		- Alta velocidad de escritura.
+		- Escalado automático. 
+		- Estructura flexible (ideal para eventos).
+		- Compatible con Free Tier. 
 	
 ### 6. Manejo de errores
 Flujo ante fallos 
