@@ -1,86 +1,127 @@
-# EDA
-Este proyecto simula un sistema de ingestión y procesamiento de eventos IoT orientado al monitoreo de la calidad del aire. 
-Sensores virtuales generan eventos de manera continua con mediciones ambientales (AQI, PM2.5 y PM10). 
-Estos eventos son enviados a un canal desacoplado y procesados de forma asíncrona, donde se categorizan y almacenan para análisis posterior. 
-El objetivo principal es demostrar un flujo de eventos near-real-time, desacoplado, escalable y con persistencia de estado derivado. 
+<h1 align="center">Hola 👋  soy Orlando / unsimpleDev ✨ </h1> 
 
-<img width="364" height="611" alt="image" src="https://github.com/user-attachments/assets/50784427-7977-4f23-8a71-10b88871c142" />
+<p align="left">
+  <a href="https://www.youtube.com/@unsimpledev" target="blank"><img align="center" src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="@unsimpledev"  /></a>
+<a href="https://www.tiktok.com/@unsimpledev" target="blank"><img align="center" src="https://img.shields.io/badge/TikTok-000000?style=for-the-badge&logo=tiktok&logoColor=white" alt="@unsimpledev" /></a>
+<a href="https://linkedin.com/in/unsimpledev" target="blank"><img align="center" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="unsimpledev"/></a>
+<a href="https://fb.com/unsimpledev" target="blank"><img align="center" src="https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white" alt="unsimpledev"  /></a>
+<a href = "mailto:unsimpledev@gmail.com" target="blank"><img align="center" src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="@unsimpledev"  /></a>
+  </p>
+<br>
+<h2>Sobre mi 😃</h2>
+<!--Intro start-->
 
-# Servicios Utilizados en AWS:
-SNS, 
-SQS, 
-Lambda,  
-DynamoDB,
-CloudWatch.
-    
-### 1. Generación de eventos
-La generación de eventos se realiza mediante un script productor que simula sensores IoT de calidad del aire Eventes_AirQuality 
-Características del evento: 
-	eventId: identificador único (UUID) 
-	timestamp: fecha y hora de generación 
-	atributo: 
-		sensorId,
-		aqi, 
-		pm25, 
-		pm10, 
-El script genera valores aleatorios dentro de rangos realistas y publica eventos de manera continua cada 0.5 segundos, simulando un stream de datos. 
-   
-### 2. Ingesta y canalización de eventos
-Se utiliza AWS SNS como canal de eventos intermedio. 
-Flujo: 
-	Productor (script Python) → SNS Topic → SQS → Lambda Consumidora
-Componentes:
-	Productor: genera y publica eventos (SNS).
-	Consumidor: procesa eventos (Lambda). 
-	Persistencia: DynamoDB. 
- 
-### 3. Procesamiento asíncrono / streaming
-La Lambda consumidora procesa los eventos conforme llegan desde SQS  (Consumidor_contaminacion) 
-Cada mensaje: 
-	Se deserializa.
-	Se categoriza según severidad ambiental.
-	Persiste en DynamoDB.
-		
-### 4. Estado y agregados
-Estado derivado 
-	El sistema mantiene estado derivado del evento: 
-	Categoría de calidad del aire (BUENA, MODERADA, INSALUBRE, etc.) 
-	Último valor conocido por sensor 
-	La categorización se calcula una sola vez en el consumidor y se almacena. 	
-### 5. Persistencia
-Cada evento procesado se almacena como un ítem en DynamoDB. 
-Campos principales: 
-	eventId (PK), 
-	sensorId, 
-	timestamp, 
-	eventType, 
-	data (mediciones + categoría).
-Justificacion:
-	Se utiliza NoSQL (DynamoDB) porque: 
-		- Alta velocidad de escritura.
-		- Escalado automático. 
-		- Estructura flexible (ideal para eventos).
-		- Compatible con Free Tier. 
-	
-### 6. Manejo de errores
-Flujo ante fallos 
-Si la Lambda falla: 
-	SQS reintenta automáticamente 
-Si falla repetidamente: 
-	El mensaje puede enviarse a una DLQ (Dead Letter Queue) 
-		
-## Requisitos no funcionales
-Arquitectura desacoplada
-	Productores y consumidores no se conocen 
-	Cambios en un componente no afectan a otros
-	
-Escalado razonable 
-	SNS y SQS escalan automáticamente 
-	Lambda escala por concurrencia 
-	DynamoDB maneja alto throughput 
+<p align="left">
+🎓 INGENIERO EN INFORMÁTICA
 
-Uso responsable de recursos 
-	Servicios serverless 
-	Sin servidores activos 
-	Compatible con AWS Free Tier 
-	Costos mínimos 
+🎥 PEQUEÑO CREADOR DE CONTENIDO que transmite sus conocimientos 📚 a través de las redes en base a mucho estudio 😵 y experiencia
+
+💻 unos cuántos años de experiencia en el proceso de desarrollo de software (solo voy a decir más de 15 para no deschavar mi edad 🙈)
+
+📝 roles en el ámbito: desarrollador... líder... arquitecto... cofundador... emprendedor... programador freelance... y en un futuro quién sabe ☺️
+
+📫 Contacto: **unsimpledev@gmail.com**
+<!--Intro end-->
+  </p>
+<br>
+
+<h2 >Tecnologías conocidas👨🏻‍💻</h2>
+<!--tech stack icons-->
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=bash,linux,anaconda,aws,cpp,discord,docker,git,github,gitlab,kali,mint,mysql,py,qt,raspberrypi,sqlite,ubuntu,windows,ps&perline=12" />
+  </a>
+</p>
+<br>
+<!-------------------------->
+<div id="proyectos">
+<h2 >Algunos proyectos👨🏻‍💻</h2>
+
+<table align="left" >
+<tr border="none">
+  <td width="25%" align="center">
+    <p align="center">
+     <a href="https://youtu.be/rISmdhlhOPM" title="Go to Source">
+        <img align="center" width=100% src="https://raw.githubusercontent.com/unsimpledev/unsimpledev/main/assets/smsgateway.webp"   alt="VIDEO" /></a>
+      </p>
+    <p align="center">
+        <a href="https://youtu.be/rISmdhlhOPM" target="blank"><img align="center" src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="@unsimpledev"  /></a>
+      <a href="https://github.com/unsimpledev/ProyectoSMSGateway" target="blank"><img align="center" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="@unsimpledev" /></a>
+    </p>       
+</td>
+<td width="25%" align="center">
+    <p align="center">
+     <a href="https://youtu.be/fiUkA2OZQjs" title="Go to Source">
+        <img align="center" width=100% src="https://raw.githubusercontent.com/unsimpledev/unsimpledev/main/assets/notifandroid.webp"   alt="VIDEO" /></a>
+      </p>
+    <p align="center">
+        <a href="https://youtu.be/fiUkA2OZQjs" target="blank"><img align="center" src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="@unsimpledev"  /></a>
+      <a href="https://github.com/unsimpledev/ProyectoNotificaciones" target="blank"><img align="center" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="@unsimpledev" /></a>
+    </p>       
+</td>
+  
+  <td width="25%" align="center">
+    <p align="center">
+     <a href="https://youtu.be/py31Y1Ku4Es" title="Go to Source">
+        <img align="center" width=100% src="https://raw.githubusercontent.com/unsimpledev/unsimpledev/main/assets/chatgptapp.webp"   alt="VIDEO" /></a>
+      </p>
+    <p align="center">
+        <a href="https://youtu.be/py31Y1Ku4Es" target="blank"><img align="center" src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="@unsimpledev"  /></a>
+      <a href="https://github.com/unsimpledev/MiChatGPT" target="blank"><img align="center" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="@unsimpledev" /></a>
+    </p>       
+</td>
+
+   <td width="25%" align="center">
+    <p align="center">
+     <a href="https://youtu.be/FbQtooM3UIs" title="Go to Source">
+        <img align="center" width=100% src="https://raw.githubusercontent.com/unsimpledev/unsimpledev/main/assets/traductorchatgpt.webp"   alt="VIDEO" /></a>
+      </p>
+    <p align="center">
+        <a href="https://youtu.be/FbQtooM3UIs" target="blank"><img align="center" src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="@unsimpledev"  /></a>
+      <a href="https://github.com/unsimpledev/MiTraductor" target="blank"><img align="center" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="@unsimpledev" /></a>
+    </p>       
+</td>
+  
+</tr>
+</table>
+  </div>
+<br>
+<br><br>
+<br>
+<br><br><br>
+<br><br>
+
+
+<h2>GitHub :octocat:</h2>
+<!--- stats & Trophy (start) -->
+<p align="center">
+  <!--- stats (start) -->
+<table align="left">
+<tr border="none">
+<td width="60%" align="center">
+
+<!--  <img  align="center"  src="https://github-readme-stats.vercel.app/api?username=unsimpledev&theme=dark&show_icons=true&count_private=true" />
+  <br></br> -->
+  <img  title="🔥 Get streak stats for your profile at git.io/streak-stats" alt="Mark streak" src="https://github-readme-streak-stats.herokuapp.com/?user=unsimpledev&theme=dark&hide_border=false" /> 
+</td>
+
+<td width="40%" align="center">
+
+  <img  align="center"  src="https://github-readme-stats.anuraghazra1.vercel.app/api/top-langs/?username=unsimpledev&theme=dark&hide_border=false&no-bg=true&no-frame=true&langs_count=10"/>
+
+  </td>
+</tr>
+</table>
+<!--- stats (end) -->
+
+<!--- trophy (start) -->
+<div align=left>
+  <a href="https://github.com/ryo-ma/github-profile-trophy" title="Go to Source">
+      <img align="center" width=84% src="https://github-profile-trophy.vercel.app/?username=unsimpledev&theme=radical&row=1&column=7&margin-h=15&margin-w=5&no-bg=true" alt="TROPHY" />
+    </a>
+</div>
+<!--- trophy (start) -->
+
+
+</p>        
+<!--- stats (end) -->
