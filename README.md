@@ -17,4 +17,4 @@ Sensores → SQS (x2) → Lambda → DynamoDB (telemetría)
 - Sin servidores activos
 - Operación dentro del Free Tier de AWS
 
-<img width="721" height="431" alt="Arquitectura Lambda" src="https://github.com/user-attachments/assets/726ee4dc-b277-4abf-a0ad-fa560b39a05b" />
+<img width="721" height="431" alt="Arquitectura Lambda" src="https://github.com/user-attachments/assets/e37ad27f-cc5d-4cef-9547-9c8d203dfd3c" />
