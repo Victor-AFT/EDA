@@ -48,8 +48,12 @@ El sistema utiliza **AWS SNS** como canal de eventos intermedio.
 
 ### Flujo arquitectónico
 ```
-Productor (Python) → SNS Topic → SQS → Lambda Consumidora → DynamoDB
+Sensores → SQS (x2) → Lambda → DynamoDB (telemetría)
+                          └→ DynamoDB (alertas)
+                          └→ SNS (notificaciones)
+
 ```
+<img width="721" height="431" alt="Arquitectura Lambda" src="https://github.com/user-attachments/assets/1677cd41-2534-44ef-82c0-297b54c523b7" />
 
 ### Componentes
 - Productor: genera y publica eventos en SNS
