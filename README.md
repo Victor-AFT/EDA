@@ -9,7 +9,7 @@ Sensores → SQS (x2) → Lambda → DynamoDB (telemetría)
                           └→ SNS (notificaciones)
 
 ```
-<img width="721" height="431" alt="Arquitectura Lambda" src="https://github.com/user-attachments/assets/1677cd41-2534-44ef-82c0-297b54c523b7" />
+
 
 
 ### Uso responsable de recursos
@@ -17,3 +17,4 @@ Sensores → SQS (x2) → Lambda → DynamoDB (telemetría)
 - Sin servidores activos
 - Operación dentro del Free Tier de AWS
 
+<img width="721" height="431" alt="Arquitectura Lambda" src="https://github.com/user-attachments/assets/726ee4dc-b277-4abf-a0ad-fa560b39a05b" />
