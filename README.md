@@ -4,9 +4,7 @@
 
 ### Flujo arquitectónico
 ```
-Sensores → SQS (x2) → Lambda → DynamoDB (telemetría)
-                          └→ DynamoDB (alertas)
-                          └→ SNS (notificaciones)
+
 
 ```
 
@@ -17,4 +15,5 @@ Sensores → SQS (x2) → Lambda → DynamoDB (telemetría)
 - Sin servidores activos
 - Operación dentro del Free Tier de AWS
 
-<img width="721" height="431" alt="Arquitectura Lambda" src="https://github.com/user-attachments/assets/e37ad27f-cc5d-4cef-9547-9c8d203dfd3c" />
+
+<img width="699" height="858" alt="DA SENSOR drawio" src="https://github.com/user-attachments/assets/d5504050-08ae-45bb-9bac-d6200b8579fa" />
