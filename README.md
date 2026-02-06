@@ -1,6 +1,5 @@
 # 📡 Arquitectura Serverless de Telemetría y Alertas (AWS Lambda)
 
-![Diagrama de Arquitectura]
 <img width="699" height="858" alt="DA SENSOR drawio" src="https://github.com/user-attachments/assets/12c5f048-ee23-45a0-aedf-e0e3cd922f56" />
 
 Este repositorio documenta una **arquitectura serverless en AWS** diseñada para procesar eventos de telemetría (aire y temperatura), almacenarlos, categorizarlos y generar **alertas críticas** de forma desacoplada, escalable y resiliente.
