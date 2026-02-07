@@ -1,0 +1,124 @@
+### IAM LAMBDA TEMP ###
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ReadFromSQSTemp",
+            "Effect": "Allow",
+            "Action": [
+                "sqs:ReceiveMessage",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes"
+            ],
+            "Resource": "arn:SQS"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "WriteTelemetryDB",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem"
+            ],
+            "Resource": "arn:DYNAMODB"
+        },
+        {
+            "Sid": "SendToCategorizedQueue",
+            "Effect": "Allow",
+            "Action": "sqs:SendMessage",
+            "Resource": "arn:SQS"
+        }
+    ]
+}
+
+### IAM LAMBDA AIR ###
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ReadFromSQSAir",
+            "Effect": "Allow",
+            "Action": [
+                "sqs:ReceiveMessage",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes"
+            ],
+            "Resource": "arn:SQS"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "WriteTelemetryDB",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem"
+            ],
+            "Resource": "arn:DYNAMODB"
+        },
+        {
+            "Sid": "SendToCategorizedQueue",
+            "Effect": "Allow",
+            "Action": "sqs:SendMessage",
+            "Resource": "arn:SQS"
+        }
+    ]
+}
+
+### IAM LAMBDA ALERTS ###
+
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "ReadFromCategorizedQueue",
+			"Effect": "Allow",
+			"Action": [
+				"sqs:ReceiveMessage",
+				"sqs:DeleteMessage",
+				"sqs:GetQueueAttributes"
+			],
+			"Resource": "arn:SQS"
+		},
+		{
+		 "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "*"
+		},
+		{
+			"Sid": "WriteAlertsDB",
+			"Effect": "Allow",
+			"Action": [
+				"dynamodb:PutItem",
+				"dynamodb:UpdateItem"
+			],
+			"Resource": "arn:DYNAMODB"
+		},
+		{
+			"Sid": "PublishCriticalAlerts",
+			"Effect": "Allow",
+			"Action": "sns:Publish",
+			"Resource": "arn:SNS"
+		}
+	]
+}
