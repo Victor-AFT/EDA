@@ -100,8 +100,9 @@ while True:
         Subject=event["eventType"]
     )
     if is_error:
-        print("🚨 Evento ERRÓNEO enviado:", event)
+        print("Evento ERRÓNEO enviado:", event)
     else:
-        print("✅ Evento enviado:", event)
+        print("Evento enviado:", event)
 
     time.sleep(0.5)
+
