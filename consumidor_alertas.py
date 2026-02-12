@@ -11,15 +11,13 @@ import time
 dynamodb = boto3.resource('dynamodb')
 table_alerts=dynamodb.Table('IoT_Critical_Alerts')
 
-sns = boto3.client("sns")
-SNS_IOT_ALERT = ""
+# Fecha de expiración en 3h en DYNAMODB
+expire_at = int(time.time()) + 3 * 3600
 
-def save_critical_alert(
-    sensor_id,
-    event_type,
-    category_or_status,
-    timestamp
-):
+sns = boto3.client("sns")
+SNS_IOT_ALERT = "arn:aws:sns"
+
+def save_critical_alert(sensor_id, event_type, category_or_status, timestamp):
     alert_item = {
         "severity": "CRITICAL",
         "timestamp": timestamp,
@@ -27,8 +25,8 @@ def save_critical_alert(
         "sensorId": sensor_id,
         "eventType": event_type,
         "category": category_or_status,
-        # TTL: 7 días
-        "ttl": int(time.time()) + (7 * 24 * 60 * 60)
+        # TTL: 3 horas
+        "ttl": expire_at
     }
 
     table_alerts.put_item(Item=alert_item)
@@ -56,14 +54,15 @@ def lambda_handler(event, context):
            
             # ---- AIR QUALITY ----
             if item["eventType"] == 'AirQuality-sensor':
+                print("category: ",message['data']['category'])
                 try:
                   
-                    if item["data"]['category'] in ["INSALUBRE", "MUY_INSALUBRE", "PELIGROSA"]:
+                    if message['data']['category'] in ["INSALUBRE", "MUY_INSALUBRE", "PELIGROSA"] and item['timestamp'] not in ['INVALID_TIMESTAMP']:
                         # Guardado alerta crítica
                         save_critical_alert(
                             sensor_id=item["sensorId"],
                             event_type=item["eventType"],
-                            category_or_status=item["data"]['category'],
+                            category_or_status=item['data']['category'],
                             timestamp=item["timestamp"]
                         )
 
@@ -73,25 +72,24 @@ def lambda_handler(event, context):
                             Subject="ALERTA CALIDAD DEL AIRE",
                             Message=(
                                 f"Sensor: {item['sensorId']}\n"
-                                f"Categoría: {message["data"]["category"]}\n"
+                                f"Categoría: {item['data']['category']}\n"
                                 f"Hora: {item['timestamp']}"
                             )
                         )
                     
                 except (ValueError, TypeError) as e:
-                    print("Error categorizando AirQuality:", e)
+                    print("Error:", e)
                 
             # ---- TEMPERATURE ----
             if item["eventType"] == "temperature-sensor":
                 try:
                     
-                    if item["data"]['status'] in ["EXTREME_HEAT", "EXTREME_COLD"]:
+                    if message['data']['status'] in ["EXTREME_HEAT", "EXTREME_COLD"] and item['timestamp'] not in ['INVALID_TIMESTAMP'] :
                         # Guardado alerta crítica
                         save_critical_alert(
                             sensor_id=item["sensorId"],
                             event_type=item["eventType"],
-                            value=float(item["data"]["value"]),
-                            category_or_status=item["data"]['status'],
+                            category_or_status=message['data']['status'],
                             timestamp=item["timestamp"]
                         )
 
@@ -101,14 +99,13 @@ def lambda_handler(event, context):
                             Subject="ALERTA TEMPERATURA",
                             Message=(
                                 f"Sensor: {item['sensorId']}\n"
-                                f"Estado: {item["data"]['status']}\n"
+                                f"Estado: {message['data']['status']}\n"
                                 f"Hora: {item['timestamp']}"
                             )
                         )
                     
                 except (ValueError, TypeError) as e:
-                    print("Error categorizando Temperature:", e)
-
+                    print("Error :", e)
         else:
             pass
         
